@@ -15,8 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     
     
-    
     override func viewDidLoad() {
+        self.title = "Tip Calculator"
+        self.billAmountTextField.becomeFirstResponder()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -26,9 +27,17 @@ class ViewController: UIViewController {
         let tipPercentages = [0.15, 0.18, 0.20]
         let tip = bill * tipPercentages [tipControl.selectedSegmentIndex]
         let total = bill + tip
-        
-        tipAmountLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        //let formattedTotal = formatter.
+        tipAmountLabel.text = formatter.string(from: NSNumber(value: tip))
+        tipAmountLabel.textAlignment = NSTextAlignment.left
+        tipAmountLabel.sizeToFit()
+        totalLabel.text = formatter.string(from: NSNumber(value: total))
+        totalLabel.textAlignment = NSTextAlignment.left
+        totalLabel.sizeToFit()
     }
     
 }
